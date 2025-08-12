@@ -1,0 +1,77 @@
+import turtle
+
+#classe base
+class Figura:
+
+    #define o variaveis
+    def __init__(self, cor, tamanho, posicao):
+        self.cor = cor
+        self.tamanho = tamanho
+        self.posicao = posicao
+    #cria um metodo que age dentro da classe base
+    def desenhar(self):
+        pass
+
+#subclasses: quadrado, triangulo, circulo e hexagono
+class Quadrado(Figura):
+    def desenhar(self):
+        #reposiciona a turtle
+        turtle.penup()
+        #leva a turtle ate a posição definida
+        turtle.goto(self.posicao)
+        #reposiciona a turtle novamente
+        turtle.pendown()
+        #determina a cor da turtle
+        turtle.color(self.cor)
+        #definição de um loop, nesse caso, 4 repetições
+        for _ in range(4):
+            #define ate onde a linha deve seguir
+            turtle.forward(self.tamanho)
+            turtle.right(90)
+
+class Triangulo(Figura):
+    def desenhar(self):
+        turtle.penup()
+        turtle.goto(self.posicao)
+        turtle.pendown()
+        turtle.color(self.cor)
+        for _ in range(3):
+            turtle.forward(self.tamanho)
+            turtle.left(120)
+
+class Circulo(Figura):
+    def desenhar(self):
+        turtle.penup()
+        turtle.goto(self.posicao[0], self.posicao[1] - self.tamanho)
+        turtle.pendown()
+        turtle.color(self.cor)
+        turtle.circle(self.tamanho)
+
+class Hexagono(Figura):
+    def desenhar(self):
+        turtle.penup()
+        turtle.goto(self.posicao)
+        turtle.pendown()
+        turtle.color(self.cor)
+        for _ in range(6):
+            turtle.forward(self.tamanho)
+            turtle.left(60)
+#define as cores das formas
+formas = [
+    Quadrado("green", 100, (-200, 100)),
+    Triangulo("purple", 100, (0, 100)),
+    Circulo("green", 50, (200, 100)),
+    Hexagono("purple", 70, (0, -100))
+]
+#define sua velocidade
+turtle.speed(3)
+#define a cor do fundo
+turtle.bgcolor("lightgray")
+
+#separa cada desenho
+for forma in formas:
+    forma.desenhar()
+
+#esconde a turtle depois de tudo feito
+turtle.hideturtle()
+turtle.done()
